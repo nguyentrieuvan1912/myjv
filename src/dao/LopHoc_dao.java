@@ -24,16 +24,16 @@ public class LopHoc_dao {
 	public ArrayList<entity.LopHoc> docTuBang(){
 		try {
 			Connection con = Database.getInstance().getConnection();
-			String sql = "select * from LopHoc";
+			String sql = "select * from LopHoc JOIN GiaoVien ON LopHoc.maGiaoVien = GiaoVien.maGiaoVien";
 			Statement statement =con.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
 		
 			while (rs.next()) { 
 				String ma = rs.getString(1);
 				String ten = rs.getString(2);
-				String gvString = rs.getString(3);
+				String gvString = rs.getString(6);
 				int siso = rs.getInt(4);
-				LopHoc s = new LopHoc(ma, ten, null, siso);
+				LopHoc s = new LopHoc(ma, ten, new GiaoVien(gvString), siso);
 				dslop.add(s);
 			}
 			
